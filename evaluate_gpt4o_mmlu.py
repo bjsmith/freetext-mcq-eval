@@ -9,13 +9,13 @@ import argparse
 from typing import Dict, Any, List
 from dotenv import load_dotenv
 from lm_eval import evaluator
-from lm_eval.models.openai_completions import OpenAICompletionsLM
+from lm_eval.models.openai_completions import OpenAICompletionsAPI
 from lm_eval.tasks import get_task_dict
 
 # Load environment variables
 load_dotenv()
 
-def setup_openai_model(api_key: str = None) -> OpenAICompletionsLM:
+def setup_openai_model(api_key: str = None) -> OpenAICompletionsAPI:
     """Setup the OpenAI model for evaluation."""
     if api_key is None:
         api_key = os.getenv("OPENAI_API_KEY")
@@ -25,7 +25,7 @@ def setup_openai_model(api_key: str = None) -> OpenAICompletionsLM:
     
     # Configure the model
     model_config = {
-        "model": "gpt-4o",
+        "model": "gpt-4o-mini",
         "batch_size": 1,  # Adjust based on your needs
         "max_batch_size": 1,
         "device": "cpu",  # Not used for OpenAI models but required
@@ -102,7 +102,7 @@ def setup_openai_model(api_key: str = None) -> OpenAICompletionsLM:
         "timeout": 60.0,
     }
     
-    return OpenAICompletionsLM(**model_config)
+    return OpenAICompletionsAPI(**model_config)
 
 def get_mmlu_tasks() -> List[str]:
     """Get the MMLU history and geography tasks."""
@@ -111,7 +111,7 @@ def get_mmlu_tasks() -> List[str]:
         "mmlu_geography"
     ]
 
-def run_evaluation(model: OpenAICompletionsLM, tasks: List[str], output_file: str = None) -> Dict[str, Any]:
+def run_evaluation(model: OpenAICompletionsAPI, tasks: List[str], output_file: str = None) -> Dict[str, Any]:
     """Run the evaluation on specified tasks."""
     print(f"Evaluating GPT-4o on tasks: {', '.join(tasks)}")
     
