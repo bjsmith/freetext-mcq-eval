@@ -1,0 +1,38 @@
+# Configuration for MMLU History/Geography evaluation with GPT-4o
+
+model:
+  name: "gpt-4o"
+  provider: "openai"
+  temperature: 0.0  # Deterministic evaluation
+  max_tokens: 512
+  batch_size: 1
+
+tasks:
+  - mmlu_history
+  - mmlu_geography
+
+evaluation:
+  limit: null  # Evaluate all examples
+  num_fewshot: 0  # No few-shot examples for MMLU
+  bootstrap_iters: 1000
+  random_seed: 42
+  write_out: false
+  log_samples: false
+
+output:
+  file: "gpt4o_mmlu_results.json"
+  format: "json"
+
+# MMLU specific settings
+mmlu:
+  # History subtopics covered:
+  # - Ancient civilizations
+  # - World wars
+  # - Political history
+  # - Cultural history
+  
+  # Geography subtopics covered:
+  # - Physical geography
+  # - Human geography
+  # - Economic geography
+  # - Political geography 
