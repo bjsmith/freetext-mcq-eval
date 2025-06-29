@@ -1,0 +1,112 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Main Evaluation Script",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/evaluate_gpt4o_mmlu.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "args": [
+                "--tasks", "mmlu_history",
+                "--output", "debug_results.json"
+            ],
+            "justMyCode": false,
+            "stopOnEntry": false,
+            "python": "${workspaceFolder}/venv/bin/python"
+        },
+        {
+            "name": "Debug Simple Evaluation",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/simple_evaluation.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "justMyCode": false,
+            "stopOnEntry": false,
+            "python": "${workspaceFolder}/venv/bin/python"
+        },
+        {
+            "name": "Debug Both MMLU Tasks",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/evaluate_gpt4o_mmlu.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "args": [
+                "--tasks", "mmlu_history", "mmlu_geography",
+                "--output", "debug_full_results.json"
+            ],
+            "justMyCode": false,
+            "stopOnEntry": false,
+            "python": "${workspaceFolder}/venv/bin/python"
+        },
+        {
+            "name": "Debug with Custom API Key",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/evaluate_gpt4o_mmlu.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}",
+                "OPENAI_API_KEY": "${env:OPENAI_API_KEY}"
+            },
+            "args": [
+                "--api-key", "${env:OPENAI_API_KEY}",
+                "--tasks", "mmlu_history",
+                "--output", "debug_custom_results.json"
+            ],
+            "justMyCode": false,
+            "stopOnEntry": false,
+            "python": "${workspaceFolder}/venv/bin/python"
+        },
+        {
+            "name": "Debug Evaluation (Step-by-Step)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/debug_evaluation.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "args": [
+                "--tasks", "mmlu_history",
+                "--output", "step_debug_results.json",
+                "--test-connection"
+            ],
+            "justMyCode": false,
+            "stopOnEntry": true,
+            "python": "${workspaceFolder}/venv/bin/python"
+        },
+        {
+            "name": "Debug Evaluation (No Limits)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/debug_evaluation.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "args": [
+                "--tasks", "mmlu_history", "mmlu_geography",
+                "--output", "full_debug_results.json"
+            ],
+            "justMyCode": false,
+            "stopOnEntry": false,
+            "python": "${workspaceFolder}/venv/bin/python"
+        }
+    ]
+} 
