@@ -1,0 +1,262 @@
+[
+  {
+    "correct": true,
+    "predicted_answer": 2,
+    "predicted_letter": "C",
+    "confidence": 1.0,
+    "scores": null,
+    "probabilities": null,
+    "predicted_probability": 1.0,
+    "correct_probability": 1.0,
+    "question": "Which of the following styles of fuzzer is more likely to explore paths covering every line of code in the following program?",
+    "choices": [
+      "Generational",
+      "Blackbox",
+      "Whitebox",
+      "Mutation-based"
+    ],
+    "correct_answer": 2,
+    "subject": "computer_security",
+    "metadata": {
+      "grader": "logprob",
+      "method": "direct",
+      "id": "",
+      "source": "mmlu"
+    },
+    "method": "direct"
+  },
+  {
+    "correct": false,
+    "predicted_answer": 2,
+    "predicted_letter": "C",
+    "confidence": 1.0,
+    "scores": null,
+    "probabilities": null,
+    "predicted_probability": 0.0,
+    "correct_probability": 0.0,
+    "question": "Assume that a TLS connection has been established successfully between a client and a server. Establishing the session included checking the server certificate and executing a DiffieHelmann exchange, but the client did not provide a client certificate. Further, assume that the client and server are honest, that the client and server don\u2019t leak their keys, and that the cryptography is good. Which of the following attacks does TLS protect against?\n1. An attacker replaying bytes that a client sent earlier.\n2. An attacker impersonating the server.",
+    "choices": [
+      "True, True",
+      "False, False",
+      "True, False",
+      "False, True"
+    ],
+    "correct_answer": 0,
+    "subject": "computer_security",
+    "metadata": {
+      "grader": "logprob",
+      "method": "direct",
+      "id": "",
+      "source": "mmlu"
+    },
+    "method": "direct"
+  },
+  {
+    "correct": true,
+    "predicted_answer": 2,
+    "predicted_letter": "C",
+    "confidence": 1.0,
+    "scores": null,
+    "probabilities": null,
+    "predicted_probability": 1.0,
+    "correct_probability": 1.0,
+    "question": "MIT\u2019s Kerberos KDC server has a maximum ticket lifetime of 24 hours (for most user principals). What ensures that an expired Kerberos ticket can no longer be used?",
+    "choices": [
+      "The Kerberos server (KDC) refuses to establish new connections between clients and servers for expired tickets.",
+      "When a client connects to a server, the server sets a 24-hour timer to terminate the connection, which ensures a client cannot remain connected past the ticket\u2019s maximum lifetime.",
+      "When a client connects to a server, the server compares the ticket\u2019s expiration time to the server\u2019s current clock, and refuses to authenticate the user if the ticket expiration time is in the past.",
+      "When a client connects to a server, the server sends a query to the KDC to check if the ticket is still valid with respect to the KDC\u2019s clock, and refuses to authenticate the user if the KDC reports that the ticket is expired."
+    ],
+    "correct_answer": 2,
+    "subject": "computer_security",
+    "metadata": {
+      "grader": "logprob",
+      "method": "direct",
+      "id": "",
+      "source": "mmlu"
+    },
+    "method": "direct"
+  },
+  {
+    "correct": true,
+    "predicted_answer": 0,
+    "predicted_letter": "A",
+    "confidence": 1.0,
+    "scores": null,
+    "probabilities": null,
+    "predicted_probability": 1.0,
+    "correct_probability": 1.0,
+    "question": "In Message Condentiality, the transmitted message must make sense to only intended",
+    "choices": [
+      "Receiver",
+      "Sender",
+      "Modulor",
+      "Translator"
+    ],
+    "correct_answer": 0,
+    "subject": "computer_security",
+    "metadata": {
+      "grader": "logprob",
+      "method": "direct",
+      "id": "",
+      "source": "mmlu"
+    },
+    "method": "direct"
+  },
+  {
+    "correct": true,
+    "predicted_answer": 0,
+    "predicted_letter": "A",
+    "confidence": 1.0,
+    "scores": null,
+    "probabilities": null,
+    "predicted_probability": 1.0,
+    "correct_probability": 1.0,
+    "question": "Which of the following is a remote Trojan?",
+    "choices": [
+      "Troya",
+      "DaCryptic",
+      "BankerA",
+      "Game-Troj"
+    ],
+    "correct_answer": 0,
+    "subject": "computer_security",
+    "metadata": {
+      "grader": "logprob",
+      "method": "direct",
+      "id": "",
+      "source": "mmlu"
+    },
+    "method": "direct"
+  },
+  {
+    "correct": true,
+    "predicted_answer": 1,
+    "predicted_letter": "B",
+    "confidence": 1.0,
+    "scores": null,
+    "probabilities": null,
+    "predicted_probability": 1.0,
+    "correct_probability": 1.0,
+    "question": "______________ is a widespread app\u2019s coding mistake made by developers which could be exploited by an attacker for gaining access or malfunctioning your system.",
+    "choices": [
+      "Memory leakage",
+      "Buffer-overrun",
+      "Less processing power",
+      "Inefficient programming"
+    ],
+    "correct_answer": 1,
+    "subject": "computer_security",
+    "metadata": {
+      "grader": "logprob",
+      "method": "direct",
+      "id": "",
+      "source": "mmlu"
+    },
+    "method": "direct"
+  },
+  {
+    "correct": false,
+    "predicted_answer": 3,
+    "predicted_letter": "D",
+    "confidence": 1.0,
+    "scores": null,
+    "probabilities": null,
+    "predicted_probability": 0.0,
+    "correct_probability": 0.0,
+    "question": "Consider the paper Native Client: A Sandbox for Portable, Untrusted x86 Native Code by Yee et al. Ben Bitdiddle notes that NaCl uses Intel x86 segmentation to ensure that the sandboxed module does not read or write memory outside its own data area, and does not execute instructions outside its own code. Ben thinks that with these restrictions alone, executing the sandboxed module must be safe; that is, he thinks validation is not needed. Ben is wrong. Circle the types of x86 machine instructions that the validator always forbids in sandboxed code. Please ignore trampoline and springboard code.",
+    "choices": [
+      "all instructions that modify segment state",
+      "all loads or stores to addresses that are not 0 mod 32",
+      "all indirect loads or stores (via an address in a register or variable)",
+      "all indirect jumps (via an address in a register or variable)"
+    ],
+    "correct_answer": 0,
+    "subject": "computer_security",
+    "metadata": {
+      "grader": "logprob",
+      "method": "direct",
+      "id": "",
+      "source": "mmlu"
+    },
+    "method": "direct"
+  },
+  {
+    "correct": true,
+    "predicted_answer": 0,
+    "predicted_letter": "A",
+    "confidence": 1.0,
+    "scores": null,
+    "probabilities": null,
+    "predicted_probability": 1.0,
+    "correct_probability": 1.0,
+    "question": "____________ is also a part of darknet that is employed for transferring files anonymously.",
+    "choices": [
+      "Freenet",
+      "ARPANET",
+      "Stuxnet",
+      "Internet"
+    ],
+    "correct_answer": 0,
+    "subject": "computer_security",
+    "metadata": {
+      "grader": "logprob",
+      "method": "direct",
+      "id": "",
+      "source": "mmlu"
+    },
+    "method": "direct"
+  },
+  {
+    "correct": true,
+    "predicted_answer": 0,
+    "predicted_letter": "A",
+    "confidence": 1.0,
+    "scores": null,
+    "probabilities": null,
+    "predicted_probability": 1.0,
+    "correct_probability": 1.0,
+    "question": "Why apps developed in languages like C, C++ is prone to Buffer-overflow?",
+    "choices": [
+      "No string boundary checks in predefined functions",
+      "No storage check in the external memory",
+      "No processing power check",
+      "No database check"
+    ],
+    "correct_answer": 0,
+    "subject": "computer_security",
+    "metadata": {
+      "grader": "logprob",
+      "method": "direct",
+      "id": "",
+      "source": "mmlu"
+    },
+    "method": "direct"
+  },
+  {
+    "correct": true,
+    "predicted_answer": 1,
+    "predicted_letter": "B",
+    "confidence": 1.0,
+    "scores": null,
+    "probabilities": null,
+    "predicted_probability": 1.0,
+    "correct_probability": 1.0,
+    "question": "Man in the middle attack can endanger the security of Diffie Hellman method if two parties are not",
+    "choices": [
+      "Joined",
+      "Authenticated",
+      "Submitted",
+      "Shared"
+    ],
+    "correct_answer": 1,
+    "subject": "computer_security",
+    "metadata": {
+      "grader": "logprob",
+      "method": "direct",
+      "id": "",
+      "source": "mmlu"
+    },
+    "method": "direct"
+  }
+]

@@ -1,291 +1,236 @@
-# MMLU Evaluation Framework
+# FreeText MCQ Evaluation Framework
 
-A comprehensive framework for evaluating Language Model performance on the Massive Multitask Language Understanding (MMLU) dataset. This project provides tools to compare different metrics and evaluate various LLM models on MCQ tasks, with integration of both custom evaluation and the EleutherAI LM Evaluation Harness.
+A comprehensive and extensible framework for evaluating language models on multiple-choice question benchmarks, with a focus on MMLU (Massive Multitask Language Understanding).
 
 ## Features
 
-- **MMLU Dataset Integration**: Easy loading and preprocessing of the MMLU dataset from Hugging Face
-- **Multiple Model Interfaces**: Support for Hugging Face models, pipeline models, and mock models for testing
-- **Comprehensive Metrics**: Accuracy, precision, recall, F1-score, confidence calibration, and subject breakdown
-- **LM Harness Integration**: Full integration with EleutherAI LM Evaluation Harness for standardized evaluations
-- **Flexible Evaluation**: Evaluate on specific subjects or the entire dataset
-- **Results Visualization**: Automatic plotting of confusion matrices, reliability diagrams, and subject comparisons
-- **Batch Processing**: Efficient batch evaluation of multiple models
-- **Results Export**: Save results in JSON and CSV formats
-- **Framework Comparison**: Compare results between custom framework and LM Harness
-
-## Project Structure
-
-```
-freetext-mcq-eval/
-├── data_loader.py              # MMLU dataset loading and preprocessing
-├── model_interface.py          # Model interfaces for different LLM types
-├── metrics.py                 # Evaluation metrics and visualization
-├── evaluate_mmlu.py           # Main evaluation script (custom framework)
-├── lm_harness_wrapper.py      # Python wrapper for LM Evaluation Harness
-├── integrated_evaluator.py    # Integrated evaluator combining both frameworks
-├── example_usage.py           # Example usage scripts
-├── requirements.txt           # Python dependencies
-├── README.md                 # This file
-├── venv/                     # Python virtual environment
-├── results/                  # Output directory for custom evaluation results
-├── integrated_results/       # Output directory for integrated evaluation results
-└── lm_harness_results/       # Output directory for LM Harness results
-```
-
-## Installation
-
-1. **Clone the repository** (if applicable) or navigate to the project directory
-
-2. **Activate the virtual environment**:
-   ```bash
-   source venv/bin/activate
-   ```
-
-3. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+- **Extensible Model Support**: Easy to add new models (OpenAI, Anthropic, local models, etc.)
+- **Multiple Benchmark Support**: Currently supports MMLU, easily extensible to other benchmarks
+- **Flexible Grading Algorithms**: Start with log-probability grading, easily swap in custom algorithms
+- **Comprehensive Evaluation**: Detailed metrics, subject-wise analysis, and confidence scoring
+- **Command-line Interface**: Easy-to-use CLI for running evaluations
+- **Rich Output**: JSON, CSV, and summary reports
 
 ## Quick Start
 
-### 1. Run the Example Script
-
-The easiest way to get started is to run the example script:
+### 1. Installation
 
 ```bash
-python example_usage.py
+# Clone the repository
+git clone <repository-url>
+cd freetext-mcq-eval
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
 ```
 
-This will demonstrate:
-- LM Harness evaluation on GPT-2
-- Custom framework evaluation with mock models
-- Framework comparison
-- Multi-model evaluation
-- Available tasks from LM Harness
-
-### 2. Use the Integrated Evaluator
-
-```python
-from integrated_evaluator import IntegratedEvaluator
-
-# Initialize the integrated evaluator
-evaluator = IntegratedEvaluator()
-
-# Evaluate using LM Harness (recommended for most cases)
-results = evaluator.evaluate_with_lm_harness(
-    model="gpt2",
-    limit=100,  # Number of examples to evaluate
-    device="cpu"
-)
-
-# Evaluate using custom framework
-results = evaluator.evaluate_with_custom_framework(
-    model_name="my_model",
-    model_type="huggingface",
-    subjects=["abstract_algebra", "anatomy"],
-    max_questions=50
-)
-
-# Compare both frameworks
-comparison = evaluator.compare_frameworks(
-    model_name="gpt2",
-    subjects=["abstract_algebra"],
-    max_questions=20
-)
-```
-
-### 3. Command Line Usage
+### 2. Set up API Key
 
 ```bash
-# Evaluate with LM Harness (recommended)
-python integrated_evaluator.py --model gpt2 --framework lm_harness --max-questions 50
-
-# Evaluate with custom framework
-python integrated_evaluator.py --model gpt2 --framework custom --model-type huggingface --max-questions 50
-
-# Compare both frameworks
-python integrated_evaluator.py --model gpt2 --framework both --max-questions 20
+# Set your OpenAI API key
+export OPENAI_API_KEY="your-api-key-here"
 ```
 
-## Framework Comparison
+### 3. Run Evaluation
 
-### LM Harness Framework (Recommended)
-- **Pros**: Standardized evaluation, optimized performance, many supported tasks, production-ready
-- **Cons**: Less flexibility for custom metrics, limited to supported models
-- **Best for**: Standard evaluations, benchmarking, production use
+#### Using the CLI:
+```bash
+# Evaluate GPT-4o-mini on MMLU (first 100 questions)
+python src/cli.py evaluate --model gpt-4o-mini --max-questions 100
 
-### Custom Framework
-- **Pros**: Full control, custom metrics, detailed analysis, any model support
-- **Cons**: Requires more setup, less optimized
-- **Best for**: Research, custom metrics, detailed analysis
+# Evaluate specific subjects
+python src/cli.py evaluate --subjects high_school_mathematics computer_security
 
-## Available Subjects
+# List available subjects
+python src/cli.py list-subjects
 
-The MMLU dataset includes 57 subjects across various domains:
+# Get subject statistics
+python src/cli.py subject-stats
+```
 
-**Humanities:**
-- abstract_algebra, anatomy, astronomy, business_ethics, clinical_knowledge, college_biology, college_chemistry, college_computer_science, college_mathematics, college_medicine, college_physics, computer_security, conceptual_physics, econometrics, electrical_engineering, elementary_mathematics, formal_logic, global_facts, high_school_biology, high_school_chemistry, high_school_computer_science, high_school_european_history, high_school_geography, high_school_government_and_politics, high_school_macroeconomics, high_school_mathematics, high_school_microeconomics, high_school_physics, high_school_psychology, high_school_statistics, high_school_us_history, high_school_world_history, human_aging, human_sexuality, international_law, jurisprudence, logical_fallacies, machine_learning, management, marketing, medical_genetics, miscellaneous, moral_disputes, moral_scenarios, nutrition, philosophy, prehistory, professional_accounting, professional_law, professional_medicine, professional_psychology, public_relations, security_studies, sociology, us_foreign_policy, virology, world_religions
+#### Using the example script:
+```bash
+# Run the example script
+python examples/test_gpt4o_mini.py
+```
 
-## Model Types
+## Framework Architecture
 
-### 1. Mock Models (Custom Framework)
-For testing and development:
+The framework is designed with modularity and extensibility in mind:
+
+```
+src/
+├── models/           # Model implementations
+│   ├── base.py      # Base model interface
+│   └── openai_model.py  # OpenAI model implementation
+├── benchmarks/       # Benchmark implementations
+│   ├── base.py      # Base benchmark interface
+│   └── mmlu.py      # MMLU benchmark implementation
+├── graders/         # Grading algorithms
+│   ├── base.py      # Base grader interface
+│   └── logprob_grader.py  # Log probability grader
+├── evaluator.py     # Main evaluation engine
+└── cli.py          # Command-line interface
+```
+
+### Key Components
+
+1. **Models** (`src/models/`): Implement the `BaseModel` interface
+2. **Benchmarks** (`src/benchmarks/`): Implement the `BaseBenchmark` interface
+3. **Graders** (`src/graders/`): Implement the `BaseGrader` interface
+4. **Evaluator**: Orchestrates the evaluation process
+
+## Extending the Framework
+
+### Adding a New Model
+
+Create a new model class that inherits from `BaseModel`:
+
 ```python
-model_config = {
-    'model_name': 'test_model',
-    'model_type': 'mock',
-    'accuracy': 0.8  # Simulated accuracy
+from src.models.base import BaseModel
+
+class MyCustomModel(BaseModel):
+    def __init__(self, model_name: str, **kwargs):
+        super().__init__(model_name, **kwargs)
+        # Initialize your model
+    
+    def generate(self, prompt: str, **kwargs) -> str:
+        # Implement text generation
+        pass
+    
+    def logprobs(self, prompt: str, completion: str) -> List[float]:
+        # Implement log probability calculation
+        pass
+    
+    def score(self, prompt: str, choices: List[str]) -> List[float]:
+        # Implement choice scoring
+        pass
+```
+
+### Adding a New Benchmark
+
+Create a new benchmark class that inherits from `BaseBenchmark`:
+
+```python
+from src.benchmarks.base import BaseBenchmark
+
+class MyCustomBenchmark(BaseBenchmark):
+    def __init__(self, benchmark_name: str, **kwargs):
+        super().__init__(benchmark_name, **kwargs)
+    
+    def load_data(self) -> None:
+        # Load your benchmark data
+        pass
+    
+    def get_questions(self) -> Iterator[Dict[str, Any]]:
+        # Yield question data
+        pass
+    
+    def format_question(self, question_data: Dict[str, Any]) -> str:
+        # Format question for model input
+        pass
+    
+    def get_choices(self, question_data: Dict[str, Any]) -> List[str]:
+        # Return choices
+        pass
+    
+    def get_correct_answer(self, question_data: Dict[str, Any]) -> int:
+        # Return correct answer index
+        pass
+```
+
+### Adding a New Grading Algorithm
+
+Create a new grader class that inherits from `BaseGrader`:
+
+```python
+from src.graders.base import BaseGrader
+
+class MyCustomGrader(BaseGrader):
+    def __init__(self, grader_name: str, **kwargs):
+        super().__init__(grader_name, **kwargs)
+    
+    def grade_question(self, model_scores: List[float], correct_answer: int) -> Dict[str, Any]:
+        # Implement your grading logic
+        pass
+    
+    def grade_batch(self, model_scores_batch: List[List[float]], correct_answers: List[int]) -> List[Dict[str, Any]]:
+        # Implement batch grading
+        pass
+```
+
+## Configuration
+
+The framework uses `config.yaml` for default configurations. You can modify this file to change default settings for models, benchmarks, and evaluation parameters.
+
+## Output Format
+
+The framework generates three types of output files:
+
+1. **Detailed Results** (`results_*.json`): Complete evaluation results for each question
+2. **Summary** (`summary_*.json`): Aggregated metrics and statistics
+3. **CSV** (`results_*.csv`): Tabular format for easy analysis
+
+### Example Summary Output
+
+```json
+{
+  "accuracy": 0.75,
+  "total_questions": 100,
+  "correct_answers": 75,
+  "evaluation_time": 120.5,
+  "questions_per_second": 0.83,
+  "subject_accuracy": {
+    "high_school_mathematics": 0.80,
+    "computer_security": 0.70
+  },
+  "avg_confidence": 2.5,
+  "model": "gpt-4o-mini",
+  "benchmark": "mmlu",
+  "grader": "logprob"
 }
 ```
 
-### 2. Hugging Face Models
-For local models:
-```python
-model_config = {
-    'model_name': 'gpt2',
-    'model_type': 'huggingface',
-    'device': 'auto',  # or 'cpu', 'cuda'
-    'max_length': 512
-}
-```
+## Supported Models
 
-### 3. LM Harness Models
-For LM Harness evaluation:
-```python
-# Direct model names work with LM Harness
-models = ["gpt2", "gpt2-medium", "meta-llama/Llama-2-7b-hf"]
-```
+- **OpenAI Models**: GPT-4o-mini, GPT-4, GPT-3.5-turbo, etc.
+- **Extensible**: Easy to add Anthropic, local models, or other APIs
 
-## Evaluation Metrics
+## Supported Benchmarks
 
-The framework calculates the following metrics:
+- **MMLU**: Massive Multitask Language Understanding (57 subjects)
+- **Extensible**: Easy to add other HuggingFace benchmarks
 
-### Basic Metrics
-- **Accuracy**: Overall correct predictions
-- **Precision**: True positives / (True positives + False positives)
-- **Recall**: True positives / (True positives + False negatives)
-- **F1-Score**: Harmonic mean of precision and recall
-- **Per-class metrics**: Metrics for each answer choice (A, B, C, D)
+## Grading Algorithms
 
-### Advanced Metrics
-- **Confusion Matrix**: Detailed breakdown of predictions vs. actual answers
-- **Subject Breakdown**: Performance across different subjects
-- **Confidence Calibration**: Expected Calibration Error (ECE)
-- **Reliability Diagram**: Confidence vs. accuracy relationship
-
-## Output Files
-
-The framework generates several output files:
-
-1. **Individual Results** (`model_name_timestamp.json`):
-   - Complete evaluation results
-   - All metrics and metadata
-   - Raw predictions and ground truth
-
-2. **Model Comparison** (`model_comparison_timestamp.csv`):
-   - Summary comparison of multiple models
-   - Key metrics in tabular format
-
-3. **Framework Comparison** (`framework_comparison_timestamp.json`):
-   - Comparison between custom framework and LM Harness
-   - Results from both evaluation approaches
-
-4. **Visualizations** (displayed automatically):
-   - Confusion matrices
-   - Per-class metric comparisons
-   - Subject breakdown charts
-   - Reliability diagrams
-
-## Advanced Usage
-
-### Multi-Model Evaluation
-
-```python
-# Evaluate multiple models
-models = [
-    {"model_name": "gpt2", "model_type": "huggingface"},
-    {"model_name": "gpt2-medium", "model_type": "huggingface"},
-    {"model_name": "mock_high_accuracy", "model_type": "mock", "accuracy": 0.9}
-]
-
-comparison = evaluator.evaluate_multiple_models(
-    models=models,
-    framework="custom",  # or "lm_harness" or "both"
-    subjects=["abstract_algebra", "anatomy"],
-    max_questions=20
-)
-```
-
-### Custom Metrics Integration
-
-```python
-# Add custom metrics to the evaluation
-from metrics import MCQEvaluator
-
-evaluator = MCQEvaluator()
-# Add your custom metrics here
-```
-
-### LM Harness Task Discovery
-
-```python
-# Get available tasks from LM Harness
-tasks = evaluator.get_available_tasks()
-print(f"Available tasks: {tasks}")
-
-# Get information about a specific task
-task_info = evaluator.lm_harness.get_task_info("mmlu")
-print(f"MMLU task info: {task_info}")
-```
-
-## Troubleshooting
-
-### Common Issues
-
-1. **CUDA Out of Memory**: Reduce batch size or use CPU
-2. **Model Loading Errors**: Check model name and ensure it's available on Hugging Face
-3. **Dataset Loading Issues**: Check internet connection for Hugging Face dataset download
-4. **LM Harness Errors**: Ensure lm-eval is properly installed and accessible
-
-### Performance Tips
-
-1. **Use GPU**: Set `device='cuda'` for faster inference
-2. **Batch Processing**: Use `generate_answers_batch()` for efficiency
-3. **Limit Questions**: Use `max_questions` parameter for quick testing
-4. **Subject Filtering**: Evaluate on specific subjects to reduce computation time
-5. **Use LM Harness**: For production evaluations, prefer LM Harness for better performance
+- **Log Probability**: Standard log-probability based scoring
+- **Extensible**: Easy to implement custom grading algorithms
 
 ## Contributing
 
-To contribute to this project:
-
 1. Fork the repository
 2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
+3. Implement your changes
+4. Add tests
 5. Submit a pull request
 
 ## License
 
-This project is open source. Please check the license file for details.
+[Add your license here]
 
 ## Citation
 
 If you use this framework in your research, please cite:
 
 ```bibtex
-@misc{mmlu_eval_framework,
-  title={MMLU Evaluation Framework},
+@software{freetext_mcq_eval,
+  title={FreeText MCQ Evaluation Framework},
   author={Your Name},
   year={2024},
   url={https://github.com/yourusername/freetext-mcq-eval}
 }
-```
-
-## Acknowledgments
-
-- MMLU dataset creators
-- EleutherAI for the LM Evaluation Harness
-- Hugging Face for the datasets and transformers libraries
-- The open-source community for various tools and libraries used in this project 
+``` 

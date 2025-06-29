@@ -2,3 +2,5 @@ venv/
 __pycache__/
 integrated_results/
 .DS_Store
+config.yaml
+.env
