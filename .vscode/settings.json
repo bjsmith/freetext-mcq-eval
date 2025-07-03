@@ -17,7 +17,6 @@
     "python.envFile": "${workspaceFolder}/.env",
     "python.terminal.activateEnvInCurrentTerminal": true,
     "debug.console.fontSize": 12,
-    "debug.console.lineHeight": 1.2,
     "python.testing.pytestEnabled": false,
     "python.testing.unittestEnabled": false,
     "python.testing.nosetestsEnabled": false,

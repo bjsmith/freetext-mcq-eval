@@ -19,10 +19,9 @@ def main():
         print("Please set OPENAI_API_KEY environment variable")
         return
     
-    # Initialize the model
+    # Initialize the model - note: api_key is NOT passed to constructor
     model = OpenAICompletionsLM(
         model="gpt-4o",
-        api_key=api_key,
         temperature=0.0,
         max_new_tokens=512,
         batch_size=1

@@ -36,13 +36,17 @@ def setup_openai_model(api_key: str = None) -> Any:
     if not api_key:
         raise ValueError("OpenAI API key not found. Set OPENAI_API_KEY environment variable or pass --api-key")
     
+    # Set the API key in environment if provided via command line
+    if api_key:
+        os.environ["OPENAI_API_KEY"] = api_key
+        logger.info("API key set in environment")
+    
     try:
         from lm_eval.models.openai_completions import OpenAICompletionsLM
         
-        # Configure the model with debug settings
+        # Configure the model with debug settings - note: api_key is NOT passed to constructor
         model_config = {
             "model": "gpt-4o",
-            "api_key": api_key,
             "temperature": 0.0,
             "max_new_tokens": 512,
             "batch_size": 1,

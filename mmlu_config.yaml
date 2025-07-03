@@ -24,7 +24,7 @@ output:
   format: "json"
 
 # MMLU specific settings
-mmlu:
+#mmlu:
   # History subtopics covered:
   # - Ancient civilizations
   # - World wars

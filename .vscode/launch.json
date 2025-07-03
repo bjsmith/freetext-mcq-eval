@@ -107,6 +107,20 @@
             "justMyCode": false,
             "stopOnEntry": false,
             "python": "${workspaceFolder}/venv/bin/python"
+        },
+        {
+            "name": "Debug MMLU lm-eval Demo",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/mmlu_lm_eval_demo.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "justMyCode": false,
+            "stopOnEntry": false,
+            "python": "${workspaceFolder}/venv/bin/python"
         }
     ]
 } 

@@ -62,7 +62,7 @@ python evaluate_gpt4o_mmlu.py --tasks mmlu_geography
 # Specify custom output file
 python evaluate_gpt4o_mmlu.py --output my_results.json
 
-# Provide API key directly
+# Provide API key directly (will be set in environment)
 python evaluate_gpt4o_mmlu.py --api-key "your_api_key_here"
 ```
 
@@ -76,7 +76,7 @@ You can also run scripts directly with the virtual environment Python:
 ```
 
 ### Command Line Arguments
-- `--api-key`: OpenAI API key (optional if set in environment)
+- `--api-key`: OpenAI API key (optional if set in environment - will be set in environment if provided)
 - `--output`: Output file for results (default: `gpt4o_mmlu_results.json`)
 - `--tasks`: Tasks to evaluate (choices: `mmlu_history`, `mmlu_geography`)
 
@@ -160,6 +160,7 @@ deactivate
 - Bootstrap confidence intervals are calculated with 1000 iterations
 - Results are saved in JSON format for further analysis
 - All dependencies are isolated in the virtual environment
+- **API Key**: The lm-eval framework reads the OpenAI API key directly from the `OPENAI_API_KEY` environment variable, not from constructor parameters
 
 ## Troubleshooting
 
@@ -174,4 +175,5 @@ deactivate
 
 ### API Issues
 - **Rate limiting**: Increase `max_retries` in model configuration
-- **Authentication errors**: Check your `.env` file and API key 
+- **Authentication errors**: Check your `.env` file and API key
+- **"API key not found"**: Ensure `OPENAI_API_KEY` environment variable is set (the framework reads it directly from environment) 
